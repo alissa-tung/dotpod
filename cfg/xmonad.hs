@@ -13,5 +13,8 @@ main = do
     $ def
       { terminal = "kitty",
         modMask = mod4Mask,
-        focusedBorderColor = "#6750A4"
+        focusedBorderColor = "#6750A4",
+        startupHook = do
+          spawn "feh --bg-fill --no-fehbg ~/.config/background-image.jpg"
+          pure ()
       }

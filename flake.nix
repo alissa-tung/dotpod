@@ -15,48 +15,52 @@
     };
   };
 
-  outputs = { self, nixpkgs, priv, disko, home-manager }@inputs:
-    let
-      privCfg = priv.privCfg;
-      hostName = priv.privCfg.hostName;
-      mainUser = "${privCfg.mainUser}";
+  outputs = {
+    self,
+    nixpkgs,
+    priv,
+    disko,
+    home-manager,
+  } @ inputs: let
+    privCfg = priv.privCfg;
+    hostName = priv.privCfg.hostName;
+    mainUser = "${privCfg.mainUser}";
 
-      hostPlatform = "x86_64-linux";
-      stateVersion = "23.05";
-      pkgs = nixpkgs.legacyPackages.${hostPlatform};
-    in
-    {
-      formatter."${hostPlatform}" =
-        nixpkgs.legacyPackages."${hostPlatform}".nixpkgs-fmt;
+    hostPlatform = "x86_64-linux";
+    stateVersion = "23.05";
+    pkgs = nixpkgs.legacyPackages.${hostPlatform};
+  in {
+    formatter."${hostPlatform}" =
+      nixpkgs.legacyPackages."${hostPlatform}".alejandra;
 
-      nixosConfigurations."${hostName}" = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit privCfg; };
+    nixosConfigurations."${hostName}" = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit privCfg;};
 
-        system = "${hostPlatform}";
-        modules = [
-          ./nixos/configuration.nix
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
+      system = "${hostPlatform}";
+      modules = [
+        ./nixos/configuration.nix
+        disko.nixosModules.disko
+        home-manager.nixosModules.home-manager
 
-          ({ lib, ... }: {
-            boot.kernelPackages = pkgs.linuxPackages_latest;
-            nixpkgs.config.allowUnfree = true;
-            nixpkgs.hostPlatform = lib.mkDefault "${hostPlatform}";
-            system.stateVersion = "${stateVersion}";
-          })
+        ({lib, ...}: {
+          boot.kernelPackages = pkgs.linuxPackages_latest;
+          nixpkgs.config.allowUnfree = true;
+          nixpkgs.hostPlatform = lib.mkDefault "${hostPlatform}";
+          system.stateVersion = "${stateVersion}";
+        })
 
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users."${mainUser}" =
-              (import ./nixos/home.nix) { inherit stateVersion; };
-          }
-        ];
-      };
-
-      devShells."${hostPlatform}".default =
-        import ./shell.nix { inherit pkgs; };
-
-      installer = import ./installer.nix;
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users."${mainUser}" =
+            (import ./nixos/home.nix) {inherit stateVersion;};
+        }
+      ];
     };
+
+    devShells."${hostPlatform}".default =
+      import ./shell.nix {inherit pkgs;};
+
+    installer = import ./installer.nix;
+  };
 }

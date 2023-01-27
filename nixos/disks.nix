@@ -1,4 +1,6 @@
-{
+{config, ...}: {
+  services.btrfs.autoScrub.enable = true;
+
   disko.enableConfig = true;
   disko.devices = {
     disk.nvme0n1 = {
@@ -34,16 +36,16 @@
               type = "btrfs";
               extraArgs = "-f -L nixos";
               subvolumes = {
-                "@" = { mountpoint = "/"; };
+                "@" = {mountpoint = "/";};
 
                 "@home" = {
                   mountpoint = "/home";
-                  mountOptions = [ "compress-force=zstd" ];
+                  mountOptions = ["compress-force=zstd"];
                 };
 
                 "@nix" = {
                   mountpoint = "/nix";
-                  mountOptions = [ "compress-force=zstd" "noatime" ];
+                  mountOptions = ["compress-force=zstd" "noatime"];
                 };
               };
             };
