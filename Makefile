@@ -1,5 +1,7 @@
 .DEFAULT_GOAL := all
+
 all: fmt os show
+init: vsc-ext
 
 PRIV_PATH ?= ../priv
 HS_FMT    ?= ormolu --no-cabal -i
@@ -38,3 +40,8 @@ installer:
 	NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/$(shell jq '.nodes.nixpkgs.locked.rev' flake.lock).tar.gz \
 	nix-shell -p nixos-generators --run                                                                                 \
 		"nixos-generate --format iso --configuration ./installer.nix -o result"
+
+vsc-ext:
+	./scripts/vsc-ext.sh > gen/vsc.nix
+	nixfmt         gen/vsc.nix
+	nixpkgs-fmt -i gen/vsc.nix

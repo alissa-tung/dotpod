@@ -3,14 +3,20 @@
 let
   vscode = with pkgs;
     vscode-with-extensions.override {
-      vscodeExtensions = with vscode-extensions; [
+      vscodeExtensions = (with vscode-extensions; [
         ms-vscode-remote.remote-ssh
         llvm-vs-code-extensions.vscode-clangd
         rust-lang.rust-analyzer
         haskell.haskell
         jnoortheen.nix-ide
         tamasfe.even-better-toml
-      ];
+        justusadam.language-haskell
+      ]) ++ map
+        (extension:
+          vscode-utils.buildVscodeMarketplaceExtension {
+            mktplcRef = { inherit (extension) name publisher version sha256; };
+          })
+        (import ../gen/vsc.nix).extensions;
     };
 
   xmobar = (import ../pkgs/xmobar.nix) { inherit pkgs; };
@@ -22,6 +28,9 @@ in
 
     ./disks.nix
   ];
+
+  services.xserver.dpi = 144;
+  services.xserver.deviceSection = lib.mkDefault ''Option "TearFree" "true"'';
 
   boot.loader = {
     systemd-boot.enable = true;
@@ -70,6 +79,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    python3
     git
     gnumake
     ormolu
@@ -81,6 +91,9 @@ in
     bottom
     light
     (kitty.overridePythonAttrs (_: { doCheck = false; }))
+    rnix-lsp
+    nixpkgs-fmt
+    alejandra
   ];
 
   fonts.fonts = with pkgs; [

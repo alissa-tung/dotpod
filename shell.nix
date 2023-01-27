@@ -2,8 +2,8 @@
 with pkgs;
 mkShell {
   buildInputs = [ ] ++ [
-    (haskellPackages.ghcWithPackages (ghcPkg:
-      with ghcPkg; [
+    (haskellPackages.ghcWithPackages (ghcPkgs:
+      with ghcPkgs; [
         haskell-language-server
 
         xmonad
