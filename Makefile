@@ -43,5 +43,8 @@ installer:
 
 vsc-ext:
 	./scripts/vsc-ext.sh > gen/vsc.nix
-	nixfmt      gen/vsc.nix
-	nixpkgs-fmt gen/vsc.nix
+
+rebuild-os:
+	(cd .. && sudo -E nixos-rebuild switch \
+		--flake ./dotpod \
+		--override-input priv ./priv)

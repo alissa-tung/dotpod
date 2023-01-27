@@ -1,4 +1,4 @@
-{ stateVersion, ... }: {
+{stateVersion, ...}: {
   home.stateVersion = stateVersion;
   programs.home-manager.enable = true;
 
