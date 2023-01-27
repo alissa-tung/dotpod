@@ -43,5 +43,5 @@ installer:
 
 vsc-ext:
 	./scripts/vsc-ext.sh > gen/vsc.nix
-	nixfmt         gen/vsc.nix
-	nixpkgs-fmt -i gen/vsc.nix
+	nixfmt      gen/vsc.nix
+	nixpkgs-fmt gen/vsc.nix
