@@ -26,6 +26,8 @@
     };
 
   xmobar = (import ../pkgs/xmobar.nix) {inherit pkgs;};
+
+  dpi = 144;
 in {
   imports = [
     ./hardware-configuration.nix
@@ -33,7 +35,13 @@ in {
     ./disks.nix
   ];
 
-  services.xserver.dpi = 144;
+  services.xserver.dpi = dpi;
+  services.xserver.displayManager.sessionCommands = ''
+    ${pkgs.xorg.xrdb}/bin/xrdb -merge <<EOF
+    Xft.dpi: ${builtins.toString dpi}
+    EOF
+  '';
+
   services.xserver.deviceSection = lib.mkDefault ''Option "TearFree" "true"'';
 
   boot.loader = {
@@ -100,6 +108,7 @@ in {
     rnix-lsp
     nixpkgs-fmt
     alejandra
+    feh
   ];
 
   fonts.fonts = with pkgs; [
@@ -125,6 +134,8 @@ in {
 
     "https://cache.nixos.org/"
   ];
+
+  services.xserver.libinput.touchpad.disableWhileTyping = true;
 
   i18n.inputMethod.enabled = "fcitx5";
   i18n.inputMethod.fcitx5.addons = with pkgs; [fcitx5-chinese-addons];

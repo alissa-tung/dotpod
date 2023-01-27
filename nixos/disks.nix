@@ -1,4 +1,6 @@
-{
+{config, ...}: {
+  services.btrfs.autoScrub.enable = true;
+
   disko.enableConfig = true;
   disko.devices = {
     disk.nvme0n1 = {

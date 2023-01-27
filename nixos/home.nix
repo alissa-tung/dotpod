@@ -2,6 +2,8 @@
   home.stateVersion = stateVersion;
   programs.home-manager.enable = true;
 
+  xdg.configFile."background-image.jpg".source = ../cfg/bgi.jpg;
+
   programs.zsh = {
     enable = true;
     initExtraFirst = ''
