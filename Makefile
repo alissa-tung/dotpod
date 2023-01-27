@@ -48,3 +48,5 @@ rebuild-os:
 	(cd .. && sudo -E nixos-rebuild switch \
 		--flake ./dotpod \
 		--override-input priv ./priv)
+
+update: update-lock vsc-ext fmt
