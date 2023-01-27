@@ -16,6 +16,7 @@
           jnoortheen.nix-ide
           tamasfe.even-better-toml
           justusadam.language-haskell
+          timonwong.shellcheck
         ])
         ++ map (extension:
           vscode-utils.buildVscodeMarketplaceExtension {
