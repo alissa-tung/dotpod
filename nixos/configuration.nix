@@ -69,6 +69,11 @@ in {
     };
   };
 
+  services.xserver.displayManager.lightdm = {
+    enable = true;
+    background = "/home/${privCfg.mainUser}/.config/background-image.jpg";
+  };
+
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
@@ -89,7 +94,9 @@ in {
     isNormalUser = true;
     extraGroups = ["wheel"];
     shell = pkgs.zsh;
-    packages = [vscode] ++ (with pkgs; [firefox]);
+    packages =
+      [vscode]
+      ++ (with pkgs; [firefox rustup cargo-edit cargo-hakari]);
   };
 
   environment.systemPackages = with pkgs; [
@@ -106,9 +113,9 @@ in {
     light
     (kitty.overridePythonAttrs (_: {doCheck = false;}))
     rnix-lsp
-    nixpkgs-fmt
     alejandra
     feh
+    unzip
   ];
 
   fonts.fonts = with pkgs; [
