@@ -17,6 +17,8 @@
           tamasfe.even-better-toml
           justusadam.language-haskell
           timonwong.shellcheck
+          ms-python.python
+          ms-python.vscode-pylance
         ])
         ++ map (extension:
           vscode-utils.buildVscodeMarketplaceExtension {
@@ -26,6 +28,7 @@
     };
 
   xmobar = (import ../pkgs/xmobar.nix) {inherit pkgs;};
+  sharedResources = import ../pkgs/shared-resources.nix {inherit pkgs;};
 
   dpi = 144;
 in {
@@ -55,7 +58,11 @@ in {
   time.timeZone = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  services.picom.enable = true;
+  services.picom = {
+    enable = true;
+    backend = "glx";
+  };
+
   services.xserver = {
     enable = true;
     libinput.enable = true;
@@ -67,6 +74,11 @@ in {
         config = builtins.readFile ../cfg/xmonad.hs;
       };
     };
+  };
+
+  services.xserver.displayManager.lightdm = {
+    enable = true;
+    background = "${sharedResources}/share/${sharedResources.pname}/bgi.jpg";
   };
 
   sound.enable = true;
@@ -82,17 +94,24 @@ in {
       + builtins.readFile ../cfg/.zshrc;
   };
 
+  programs.bash.interactiveShellInit = ''
+    eval "$(starship init bash)"
+  '';
+
   users.mutableUsers = false;
   users.users.root.password = "${privCfg.rootPasswd}";
   users.users."${privCfg.mainUser}" = {
     password = "${privCfg.mainPasswd}";
     isNormalUser = true;
     extraGroups = ["wheel"];
-    shell = pkgs.zsh;
-    packages = [vscode] ++ (with pkgs; [firefox]);
+    packages =
+      [vscode]
+      ++ (with pkgs; [firefox rustup cargo-edit cargo-hakari]);
   };
 
   environment.systemPackages = with pkgs; [
+    sharedResources
+
     python3
     git
     gnumake
@@ -104,11 +123,16 @@ in {
     ripgrep
     bottom
     light
-    (kitty.overridePythonAttrs (_: {doCheck = false;}))
-    rnix-lsp
-    nixpkgs-fmt
+    kitty
+    nil
     alejandra
     feh
+    unzip
+    black
+    pylint
+    erlfmt
+    erlang-ls
+    starship
   ];
 
   fonts.fonts = with pkgs; [

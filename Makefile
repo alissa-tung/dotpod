@@ -18,6 +18,7 @@ develop:
 
 fmt:
 	fd -e hs  -x ${HS_FMT}
+	fd -e py  -x black
 	fd -e nix -x nixfmt
 	${NIX_CMD} fmt ${USE_PRIV}
 
@@ -49,4 +50,7 @@ rebuild-os:
 		--flake ./dotpod \
 		--override-input priv ./priv)
 
-update: update-lock vsc-ext fmt
+update-starship:
+	starship preset plain-text-symbols > gen/starship.toml
+
+update: update-starship update-lock vsc-ext fmt
