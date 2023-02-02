@@ -18,6 +18,7 @@ develop:
 
 fmt:
 	fd -e hs  -x ${HS_FMT}
+	fd -e py  -x black
 	fd -e nix -x nixfmt
 	${NIX_CMD} fmt ${USE_PRIV}
 

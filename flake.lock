@@ -65,10 +65,7 @@
       },
       "locked": {
         "lastModified": 1674831364,
-        "narHash": "sha256-S29lZl97vYhalD7Lr3j9HNbgrIHBuLDn+ANF2mmzi5g=",
-        "ref": "refs/heads/main",
-        "rev": "908a4106aa9008ce54fe7e0bad6cc2b48599f205",
-        "revCount": 1,
+        "narHash": "sha256-XSC80Zy7T0DSKqra0dU3ZLERc5RoGM+BZpRZveg+rgE=",
         "type": "git",
         "url": "file:///home/alissa/.config/nixos-configuration/priv"
       },

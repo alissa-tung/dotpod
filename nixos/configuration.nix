@@ -18,6 +18,7 @@
           justusadam.language-haskell
           timonwong.shellcheck
           ms-python.python
+          ms-python.vscode-pylance
         ])
         ++ map (extension:
           vscode-utils.buildVscodeMarketplaceExtension {
@@ -27,6 +28,7 @@
     };
 
   xmobar = (import ../pkgs/xmobar.nix) {inherit pkgs;};
+  sharedResources = import ../pkgs/shared-resources.nix {inherit pkgs;};
 
   dpi = 144;
 in {
@@ -76,7 +78,7 @@ in {
 
   services.xserver.displayManager.lightdm = {
     enable = true;
-    background = "/home/${privCfg.mainUser}/.config/background-image.jpg";
+    background = "${sharedResources}/share/${sharedResources.pname}/bgi.jpg";
   };
 
   sound.enable = true;
@@ -108,6 +110,8 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
+    sharedResources
+
     python3
     git
     gnumake
@@ -124,7 +128,8 @@ in {
     alejandra
     feh
     unzip
-    python3.pkgs.autopep8
+    black
+    pylint
     erlfmt
     erlang-ls
     starship

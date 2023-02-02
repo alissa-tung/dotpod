@@ -1,2 +1,3 @@
 sainnhe.everforest
 erlang-ls.erlang-ls
+ms-python.pylint

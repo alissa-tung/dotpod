@@ -1,10 +1,16 @@
-{config, ...}: {
+{
+  config,
+  privCfg,
+  ...
+}: let
+  mainDisk = privCfg.mainDisk;
+in {
   services.btrfs.autoScrub.enable = true;
 
   disko.enableConfig = true;
   disko.devices = {
-    disk.nvme0n1 = {
-      device = "/dev/nvme0n1";
+    disk."${mainDisk}" = {
+      device = "/dev/${mainDisk}";
       type = "disk";
       content = {
         type = "table";

@@ -26,5 +26,8 @@
   "evenBetterToml.formatter.allowedBlankLines": 1,
   "evenBetterToml.formatter.reorderKeys": true,
   "terminal.integrated.defaultProfile.linux": "zsh",
-  "python.formatting.autopep8Path": "/run/current-system/sw/bin/autopep8"
+  "python.formatting.provider": "black",
+  "python.formatting.blackPath": "/run/current-system/sw/bin/black",
+  "python.linting.pylintPath": "/run/current-system/sw/bin/pylint",
+  "python.linting.pylintEnabled": true
 }
