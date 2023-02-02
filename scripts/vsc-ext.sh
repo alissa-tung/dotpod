@@ -54,12 +54,12 @@ trap clean_up SIGINT
 printf '{ extensions = [\n'
 
 # Note that we are only looking to update extensions that are already installed.
-for i in $(cat './cfg/vsc_ext.txt')
+while IFS= read -r i
 do
     OWNER=$(echo "$i" | cut -d. -f1)
     EXT=$(echo "$i" | cut -d. -f2)
 
     get_vsixpkg "$OWNER" "$EXT"
-done
+done < './cfg/vsc_ext.txt'
 # Close off the nix expression.
 printf '];\n}'

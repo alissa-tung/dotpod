@@ -1,0 +1,30 @@
+{
+  "workbench.startupEditor": "newUntitledFile",
+  "window.titleBarStyle": "custom",
+  "editor.fontLigatures": true,
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.minimap.enabled": false,
+  "workbench.colorTheme": "Everforest Dark",
+  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorBlinking": "expand",
+  "editor.cursorStyle": "block",
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": "nil",
+  "nix.serverSettings": {
+    "nil": {
+      "formatting": {
+        "command": [
+          "alejandra"
+        ]
+      }
+    }
+  },
+  "haskell.manageHLS": "PATH",
+  "editor.renderWhitespace": "boundary",
+  "evenBetterToml.formatter.allowedBlankLines": 1,
+  "evenBetterToml.formatter.reorderKeys": true,
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "python.formatting.autopep8Path": "/run/current-system/sw/bin/autopep8"
+}

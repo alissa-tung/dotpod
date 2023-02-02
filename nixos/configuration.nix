@@ -17,6 +17,7 @@
           tamasfe.even-better-toml
           justusadam.language-haskell
           timonwong.shellcheck
+          ms-python.python
         ])
         ++ map (extension:
           vscode-utils.buildVscodeMarketplaceExtension {
@@ -55,7 +56,11 @@ in {
   time.timeZone = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  services.picom.enable = true;
+  services.picom = {
+    enable = true;
+    backend = "glx";
+  };
+
   services.xserver = {
     enable = true;
     libinput.enable = true;
@@ -87,13 +92,16 @@ in {
       + builtins.readFile ../cfg/.zshrc;
   };
 
+  programs.bash.interactiveShellInit = ''
+    eval "$(starship init bash)"
+  '';
+
   users.mutableUsers = false;
   users.users.root.password = "${privCfg.rootPasswd}";
   users.users."${privCfg.mainUser}" = {
     password = "${privCfg.mainPasswd}";
     isNormalUser = true;
     extraGroups = ["wheel"];
-    shell = pkgs.zsh;
     packages =
       [vscode]
       ++ (with pkgs; [firefox rustup cargo-edit cargo-hakari]);
@@ -111,11 +119,15 @@ in {
     ripgrep
     bottom
     light
-    (kitty.overridePythonAttrs (_: {doCheck = false;}))
-    rnix-lsp
+    kitty
+    nil
     alejandra
     feh
     unzip
+    python3.pkgs.autopep8
+    erlfmt
+    erlang-ls
+    starship
   ];
 
   fonts.fonts = with pkgs; [
