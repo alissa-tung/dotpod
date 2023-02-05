@@ -5,6 +5,8 @@
   pkgs,
   ...
 }: let
+  utils = import ../utils.nix;
+
   vscode = with pkgs;
     vscode-with-extensions.override {
       vscodeExtensions =
@@ -150,14 +152,7 @@ in {
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   system.autoUpgrade.channel = "https://mirrors.bfsu.edu.cn/nix-channels/nixos-unstable/";
-  nix.settings.substituters = lib.mkForce [
-    "https://mirrors.bfsu.edu.cn/nix-channels/store"
-    "https://mirror.sjtu.edu.cn/nix-channels/store"
-    "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-    "https://mirrors.ustc.edu.cn/nix-channels/store"
-
-    "https://cache.nixos.org/"
-  ];
+  nix.settings.substituters = lib.mkForce utils.mirrors;
 
   services.xserver.libinput.touchpad.disableWhileTyping = true;
 
