@@ -5,34 +5,12 @@
   pkgs,
   ...
 }: let
+  dpi = 144;
+
   utils = import ../utils.nix;
 
-  vscode = with pkgs;
-    vscode-with-extensions.override {
-      vscodeExtensions =
-        (with vscode-extensions; [
-          ms-vscode-remote.remote-ssh
-          llvm-vs-code-extensions.vscode-clangd
-          rust-lang.rust-analyzer
-          haskell.haskell
-          jnoortheen.nix-ide
-          tamasfe.even-better-toml
-          justusadam.language-haskell
-          timonwong.shellcheck
-          ms-python.python
-          ms-python.vscode-pylance
-        ])
-        ++ map (extension:
-          vscode-utils.buildVscodeMarketplaceExtension {
-            mktplcRef = {inherit (extension) name publisher version sha256;};
-          })
-        (import ../gen/vsc.nix).extensions;
-    };
-
-  xmobar = (import ../pkgs/xmobar.nix) {inherit pkgs;};
+  xmobar = import ../pkgs/xmobar.nix {inherit pkgs;};
   sharedResources = utils.sharedResources pkgs;
-
-  dpi = 144;
 in {
   imports = [
     ./hardware-configuration.nix
@@ -110,9 +88,7 @@ in {
     password = "${privCfg.mainPasswd}";
     isNormalUser = true;
     extraGroups = ["wheel"];
-    packages =
-      [vscode]
-      ++ (with pkgs; [firefox rustup cargo-edit cargo-hakari]);
+    packages = with pkgs; [firefox rustup cargo-edit cargo-hakari];
   };
 
   environment.systemPackages = with pkgs; [

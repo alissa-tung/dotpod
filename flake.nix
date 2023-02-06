@@ -28,7 +28,14 @@
 
     hostPlatform = "x86_64-linux";
     stateVersion = "23.05";
-    pkgs = nixpkgs.legacyPackages.${hostPlatform};
+    pkgs = nixpkgs.legacyPackages.${hostPlatform}.extend (_: prev: {
+      config =
+        {
+          allowUnfree = true;
+          allowUnfreePredicate = _: true;
+        }
+        // prev.config;
+    });
   in {
     formatter."${hostPlatform}" =
       nixpkgs.legacyPackages."${hostPlatform}".alejandra;
@@ -45,16 +52,19 @@
         ({lib, ...}: {
           boot.kernelPackages = pkgs.linuxPackages_latest;
           nixpkgs.config.allowUnfree = true;
+          nixpkgs.config.allowUnfreePredicate = _: true;
           nixpkgs.hostPlatform = lib.mkDefault "${hostPlatform}";
           system.stateVersion = "${stateVersion}";
         })
 
-        {
+        (let
+          vscode = import ./pkgs/vscode.nix {inherit pkgs;};
+        in {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users."${mainUser}" =
-            (import ./nixos/home.nix) {inherit stateVersion pkgs;};
-        }
+            import ./nixos/home.nix {inherit stateVersion pkgs vscode;};
+        })
       ];
     };
 
