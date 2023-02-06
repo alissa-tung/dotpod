@@ -27,9 +27,9 @@ with pkgs;
       in
         assert vscode.pname == "vscode";
           vscode.overrideAttrs (_: prev: {
-            installPhase =
-              prev.installPhase
-              + "chmod +x $out/lib/vscode/resources/app/node_modules/node-pty/build/Release/spawn-helper";
+            postPatch =
+              prev.postPatch
+              + "chmod +x resources/app/node_modules/node-pty/build/Release/spawn-helper";
           }))
     ];
   })
