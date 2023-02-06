@@ -29,10 +29,7 @@ with pkgs;
           vscode.overrideAttrs (_: prev: {
             installPhase =
               prev.installPhase
-              + "chmod +x resources/app/node_modules/node-pty/build/Release/spawn-helper";
+              + "chmod +x $out/lib/vscode/resources/app/node_modules/node-pty/build/Release/spawn-helper";
           }))
     ];
   })
-  // {
-    pname = "vscode";
-  }

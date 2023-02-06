@@ -35,7 +35,7 @@ in {
 
   programs.vscode = {
     enable = true;
-    package = vscode;
+    package = vscode // {pname = "vscode";};
     userSettings = builtins.fromJSON (builtins.readFile ../cfg/vsc.jsonc);
   };
 
