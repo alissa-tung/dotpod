@@ -28,7 +28,7 @@ in {
     lib.mkForce (lib.lists.filter (x: x != "zfs") defaultSupportedFilesystems);
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = utils.experimentalFeatures;
   networking.wireless.iwd.enable = true;
   networking.wireless.enable = lib.mkForce false;
 

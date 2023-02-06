@@ -10,6 +10,7 @@
   utils = import ../utils.nix;
 
   xmobar = import ../pkgs/xmobar.nix {inherit pkgs;};
+  vscode = import ../pkgs/vscode.nix {inherit pkgs;};
   sharedResources = utils.sharedResources pkgs;
 in {
   imports = [
@@ -88,7 +89,9 @@ in {
     password = "${privCfg.mainPasswd}";
     isNormalUser = true;
     extraGroups = ["wheel"];
-    packages = with pkgs; [firefox rustup cargo-edit cargo-hakari];
+    packages =
+      [vscode]
+      ++ (with pkgs; [firefox rustup cargo-edit cargo-hakari]);
   };
 
   environment.systemPackages = with pkgs; [
@@ -130,7 +133,7 @@ in {
 
   services.openssh.enable = true;
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = utils.experimentalFeatures;
 
   system.autoUpgrade.channel = "https://mirrors.bfsu.edu.cn/nix-channels/nixos-unstable/";
   nix.settings.substituters = lib.mkForce utils.mirrors;

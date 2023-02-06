@@ -7,6 +7,7 @@
 
     "https://cache.nixos.org/"
   ];
+  experimentalFeatures = ["nix-command" "flakes" "repl-flake"];
 
   sharedResources = pkgs: let
     sharedResources = import ./pkgs/shared-resources.nix {inherit pkgs;};

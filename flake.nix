@@ -30,11 +30,11 @@
     stateVersion = "23.05";
     pkgs = nixpkgs.legacyPackages.${hostPlatform}.extend (_: prev: {
       config =
-        {
+        prev.config
+        // {
           allowUnfree = true;
           allowUnfreePredicate = _: true;
-        }
-        // prev.config;
+        };
     });
   in {
     formatter."${hostPlatform}" =
@@ -57,14 +57,12 @@
           system.stateVersion = "${stateVersion}";
         })
 
-        (let
-          vscode = import ./pkgs/vscode.nix {inherit pkgs;};
-        in {
+        {
           home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
+          home-manager.useUserPackages = false;
           home-manager.users."${mainUser}" =
-            import ./nixos/home.nix {inherit stateVersion pkgs vscode;};
-        })
+            import ./nixos/home.nix {inherit stateVersion pkgs;};
+        }
       ];
     };
 
