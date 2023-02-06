@@ -28,14 +28,7 @@
 
     hostPlatform = "x86_64-linux";
     stateVersion = "23.05";
-    pkgs = nixpkgs.legacyPackages.${hostPlatform}.extend (_: prev: {
-      config =
-        prev.config
-        // {
-          allowUnfree = true;
-          allowUnfreePredicate = _: true;
-        };
-    });
+    pkgs = nixpkgs.legacyPackages.${hostPlatform};
   in {
     formatter."${hostPlatform}" =
       nixpkgs.legacyPackages."${hostPlatform}".alejandra;
@@ -57,12 +50,18 @@
           system.stateVersion = "${stateVersion}";
         })
 
-        {
+        (let
+          pkgs = import "${nixpkgs}" {
+            system = "${hostPlatform}";
+            config.allowUnfree = true;
+            config.allowUnfreePredicate = _: true;
+          };
+        in {
           home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = false;
+          home-manager.useUserPackages = true;
           home-manager.users."${mainUser}" =
             import ./nixos/home.nix {inherit stateVersion pkgs;};
-        }
+        })
       ];
     };
 

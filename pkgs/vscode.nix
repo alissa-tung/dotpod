@@ -21,14 +21,18 @@ with pkgs;
       (import ../gen/vsc.nix).extensions;
   })
   .overrideAttrs (_: prev: {
-    buildInputs = lib.lists.map (x:
-      if x.pname == "vscode"
-      then
-        x.overrideAttrs (_: prev: {
-          installPhase =
-            prev.installPhase
-            + "chmod +x resources/app/node_modules/node-pty/build/Release/spawn-helper";
-        })
-      else x)
-    prev.buildInputs;
+    buildInputs = [
+      (assert pkgs.lib.lists.length prev.buildInputs == 1; let
+        vscode = pkgs.lib.lists.head prev.buildInputs;
+      in
+        assert vscode.pname == "vscode";
+          vscode.overrideAttrs (_: prev: {
+            installPhase =
+              prev.installPhase
+              + "chmod +x resources/app/node_modules/node-pty/build/Release/spawn-helper";
+          }))
+    ];
   })
+  // {
+    pname = "vscode";
+  }

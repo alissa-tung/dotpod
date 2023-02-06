@@ -10,7 +10,6 @@
   utils = import ../utils.nix;
 
   xmobar = import ../pkgs/xmobar.nix {inherit pkgs;};
-  vscode = import ../pkgs/vscode.nix {inherit pkgs;};
   sharedResources = utils.sharedResources pkgs;
 in {
   imports = [
@@ -89,9 +88,7 @@ in {
     password = "${privCfg.mainPasswd}";
     isNormalUser = true;
     extraGroups = ["wheel"];
-    packages =
-      [vscode]
-      ++ (with pkgs; [firefox rustup cargo-edit cargo-hakari]);
+    packages = with pkgs; [firefox rustup cargo-edit cargo-hakari];
   };
 
   environment.systemPackages = with pkgs; [
