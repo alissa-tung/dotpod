@@ -53,7 +53,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users."${mainUser}" =
-            (import ./nixos/home.nix) {inherit stateVersion;};
+            (import ./nixos/home.nix) {inherit stateVersion pkgs;};
         }
       ];
     };

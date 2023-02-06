@@ -30,7 +30,7 @@
     };
 
   xmobar = (import ../pkgs/xmobar.nix) {inherit pkgs;};
-  sharedResources = import ../pkgs/shared-resources.nix {inherit pkgs;};
+  sharedResources = utils.sharedResources pkgs;
 
   dpi = 144;
 in {
@@ -73,14 +73,16 @@ in {
       xmonad = {
         enable = true;
         extraPackages = haskellPackages: [haskellPackages.xmonad-contrib];
-        config = builtins.readFile ../cfg/xmonad.hs;
+        config =
+          sharedResources.replaceBackgroundImageString
+          (builtins.readFile ../cfg/xmonad.hs);
       };
     };
   };
 
   services.xserver.displayManager.lightdm = {
     enable = true;
-    background = "${sharedResources}/share/${sharedResources.pname}/bgi.jpg";
+    background = sharedResources.backgroundImagePath;
   };
 
   sound.enable = true;
@@ -94,6 +96,8 @@ in {
         source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
       ''
       + builtins.readFile ../cfg/.zshrc;
+
+    autosuggestions = {enable = true;};
   };
 
   programs.bash.interactiveShellInit = ''
@@ -112,8 +116,6 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    sharedResources
-
     python3
     git
     gnumake
@@ -135,6 +137,7 @@ in {
     erlfmt
     erlang-ls
     starship
+    gwenview
   ];
 
   fonts.fonts = with pkgs; [
@@ -145,6 +148,8 @@ in {
     noto-fonts-emoji
     fira-code
     sarasa-gothic
+
+    roboto-mono
   ];
 
   services.openssh.enable = true;
@@ -158,4 +163,9 @@ in {
 
   i18n.inputMethod.enabled = "fcitx5";
   i18n.inputMethod.fcitx5.addons = with pkgs; [fcitx5-chinese-addons];
+
+  services.emacs = {
+    enable = true;
+    defaultEditor = true;
+  };
 }

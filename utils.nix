@@ -7,4 +7,17 @@
 
     "https://cache.nixos.org/"
   ];
+
+  sharedResources = pkgs: let
+    sharedResources = import ./pkgs/shared-resources.nix {inherit pkgs;};
+  in rec {
+    inherit (sharedResources) outPath;
+
+    backgroundImagePath = "${outPath}/bgi.jpg";
+
+    replaceBackgroundImageString = inputString:
+      builtins.replaceStrings ["__BACKGROUND_IMAGE__"]
+      [backgroundImagePath]
+      inputString;
+  };
 }

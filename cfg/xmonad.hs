@@ -15,6 +15,6 @@ main = do
         modMask = mod4Mask,
         focusedBorderColor = "#6750A4",
         startupHook = do
-          spawn "feh --bg-fill --no-fehbg ~/.config/background-image.jpg"
+          spawn $ "feh --bg-fill --no-fehbg " <> "__BACKGROUND_IMAGE__"
           pure ()
       }
