@@ -7,8 +7,6 @@
 
   utils = import ../utils.nix;
   sharedResources = utils.sharedResources pkgs;
-
-  vscode = import ../pkgs/vscode.nix {inherit pkgs;};
 in {
   nixpkgs.config = import ../cfg/nixpkgs-config.nix;
 
@@ -35,7 +33,6 @@ in {
 
   programs.vscode = {
     enable = true;
-    package = vscode // {pname = "vscode";};
     userSettings = builtins.fromJSON (builtins.readFile ../cfg/vsc.jsonc);
   };
 
