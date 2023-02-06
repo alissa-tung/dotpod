@@ -45,16 +45,23 @@
         ({lib, ...}: {
           boot.kernelPackages = pkgs.linuxPackages_latest;
           nixpkgs.config.allowUnfree = true;
+          nixpkgs.config.allowUnfreePredicate = _: true;
           nixpkgs.hostPlatform = lib.mkDefault "${hostPlatform}";
           system.stateVersion = "${stateVersion}";
         })
 
-        {
+        (let
+          pkgs = import "${nixpkgs}" {
+            system = "${hostPlatform}";
+            config.allowUnfree = true;
+            config.allowUnfreePredicate = _: true;
+          };
+        in {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users."${mainUser}" =
-            (import ./nixos/home.nix) {inherit stateVersion;};
-        }
+            import ./nixos/home.nix {inherit stateVersion pkgs;};
+        })
       ];
     };
 

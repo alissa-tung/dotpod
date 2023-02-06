@@ -5,32 +5,13 @@
   pkgs,
   ...
 }: let
-  vscode = with pkgs;
-    vscode-with-extensions.override {
-      vscodeExtensions =
-        (with vscode-extensions; [
-          ms-vscode-remote.remote-ssh
-          llvm-vs-code-extensions.vscode-clangd
-          rust-lang.rust-analyzer
-          haskell.haskell
-          jnoortheen.nix-ide
-          tamasfe.even-better-toml
-          justusadam.language-haskell
-          timonwong.shellcheck
-          ms-python.python
-          ms-python.vscode-pylance
-        ])
-        ++ map (extension:
-          vscode-utils.buildVscodeMarketplaceExtension {
-            mktplcRef = {inherit (extension) name publisher version sha256;};
-          })
-        (import ../gen/vsc.nix).extensions;
-    };
-
-  xmobar = (import ../pkgs/xmobar.nix) {inherit pkgs;};
-  sharedResources = import ../pkgs/shared-resources.nix {inherit pkgs;};
-
   dpi = 144;
+
+  utils = import ../utils.nix;
+
+  vscode = import ../pkgs/vscode.nix {inherit pkgs;};
+  xmobar = import ../pkgs/xmobar.nix {inherit pkgs;};
+  sharedResources = utils.sharedResources pkgs;
 in {
   imports = [
     ./hardware-configuration.nix
@@ -71,14 +52,16 @@ in {
       xmonad = {
         enable = true;
         extraPackages = haskellPackages: [haskellPackages.xmonad-contrib];
-        config = builtins.readFile ../cfg/xmonad.hs;
+        config =
+          sharedResources.replaceBackgroundImageString
+          (builtins.readFile ../cfg/xmonad.hs);
       };
     };
   };
 
   services.xserver.displayManager.lightdm = {
     enable = true;
-    background = "${sharedResources}/share/${sharedResources.pname}/bgi.jpg";
+    background = sharedResources.backgroundImagePath;
   };
 
   sound.enable = true;
@@ -92,6 +75,8 @@ in {
         source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
       ''
       + builtins.readFile ../cfg/.zshrc;
+
+    autosuggestions = {enable = true;};
   };
 
   programs.bash.interactiveShellInit = ''
@@ -110,8 +95,6 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    sharedResources
-
     python3
     git
     gnumake
@@ -133,6 +116,7 @@ in {
     erlfmt
     erlang-ls
     starship
+    gwenview
   ];
 
   fonts.fonts = with pkgs; [
@@ -143,24 +127,24 @@ in {
     noto-fonts-emoji
     fira-code
     sarasa-gothic
+
+    roboto-mono
   ];
 
   services.openssh.enable = true;
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = utils.experimentalFeatures;
 
   system.autoUpgrade.channel = "https://mirrors.bfsu.edu.cn/nix-channels/nixos-unstable/";
-  nix.settings.substituters = lib.mkForce [
-    "https://mirrors.bfsu.edu.cn/nix-channels/store"
-    "https://mirror.sjtu.edu.cn/nix-channels/store"
-    "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-    "https://mirrors.ustc.edu.cn/nix-channels/store"
-
-    "https://cache.nixos.org/"
-  ];
+  nix.settings.substituters = lib.mkForce utils.mirrors;
 
   services.xserver.libinput.touchpad.disableWhileTyping = true;
 
   i18n.inputMethod.enabled = "fcitx5";
   i18n.inputMethod.fcitx5.addons = with pkgs; [fcitx5-chinese-addons];
+
+  services.emacs = {
+    enable = true;
+    defaultEditor = true;
+  };
 }

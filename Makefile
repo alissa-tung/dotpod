@@ -45,8 +45,13 @@ installer:
 vsc-ext:
 	./scripts/vsc-ext.sh > gen/vsc.nix
 
-rebuild-os:
+rebuild-os-switch:
 	(cd .. && sudo -E nixos-rebuild switch \
+		--flake ./dotpod \
+		--override-input priv ./priv)
+
+rebuild-os-test:
+	(cd .. && sudo -E nixos-rebuild test \
 		--flake ./dotpod \
 		--override-input priv ./priv)
 

@@ -7,7 +7,7 @@
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.minimap.enabled": false,
   "workbench.colorTheme": "Everforest Dark",
-  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorBlinking": "expand",
   "editor.cursorStyle": "block",
   "nix.enableLanguageServer": true,

@@ -6,11 +6,11 @@ in
     version = "0.0.0";
 
     dontBuild = true;
-    src = ../cfg;
+    src = ./shared-resources;
 
     unpackPhase = "true";
     installPhase = ''
-      mkdir -p $out/share/${pname}/
-      cp $src/bgi.jpg $out/share/${pname}/
+      mkdir -p $out/
+      cp -r $src/* $out/
     '';
   }
