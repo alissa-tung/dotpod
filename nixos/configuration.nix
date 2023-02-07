@@ -19,6 +19,8 @@ in {
     ./disks.nix
   ];
 
+  services.btrfs.autoScrub.enable = true;
+
   services.xserver.dpi = dpi;
   services.xserver.displayManager.sessionCommands = ''
     ${pkgs.xorg.xrdb}/bin/xrdb -merge <<EOF
@@ -117,6 +119,8 @@ in {
     erlang-ls
     starship
     gwenview
+    deno
+    shadowsocks-rust
   ];
 
   fonts.fonts = with pkgs; [

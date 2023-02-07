@@ -17,6 +17,7 @@ pkgs.vscode-with-extensions.override {
       timonwong.shellcheck
       ms-python.python
       ms-python.vscode-pylance
+      denoland.vscode-deno
     ])
     ++ map (extension:
       pkgs.vscode-utils.buildVscodeMarketplaceExtension {

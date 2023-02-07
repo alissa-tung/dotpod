@@ -5,8 +5,6 @@
 }: let
   mainDisk = privCfg.mainDisk;
 in {
-  services.btrfs.autoScrub.enable = true;
-
   disko.enableConfig = true;
   disko.devices = {
     disk."${mainDisk}" = {
