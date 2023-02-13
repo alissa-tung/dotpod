@@ -90,10 +90,18 @@ in {
   users.users."${privCfg.mainUser}" = {
     password = "${privCfg.mainPasswd}";
     isNormalUser = true;
-    extraGroups = ["wheel"];
+    extraGroups = ["wheel" "docker"];
     packages =
       [vscode]
-      ++ (with pkgs; [firefox rustup cargo-edit cargo-hakari]);
+      ++ (with pkgs; [
+        firefox
+        rustup
+        cargo-edit
+        cargo-hakari
+        cargo-binutils
+        cargo-make
+        elan
+      ]);
   };
 
   environment.systemPackages = with pkgs; [
@@ -121,6 +129,7 @@ in {
     gwenview
     deno
     shadowsocks-rust
+    jetbrains.idea-ultimate
   ];
 
   fonts.fonts = with pkgs; [
@@ -150,5 +159,13 @@ in {
   services.emacs = {
     enable = true;
     defaultEditor = true;
+  };
+
+  virtualisation.docker = {
+    enable = true;
+    storageDriver = "btrfs";
+    daemon.settings = {
+      "registry-mirrors" = ["http://f1361db2.m.daocloud.io"];
+    };
   };
 }

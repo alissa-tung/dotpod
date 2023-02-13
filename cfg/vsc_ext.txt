@@ -1,3 +1,4 @@
 sainnhe.everforest
 erlang-ls.erlang-ls
 ms-python.pylint
+leanprover.lean4

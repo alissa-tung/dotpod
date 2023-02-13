@@ -1,10 +1,5 @@
 {pkgs, ...}:
 pkgs.vscode-with-extensions.override {
-  vscode = pkgs.vscode.overrideAttrs (_: prev: {
-    postPatch =
-      prev.postPatch
-      + "chmod +x resources/app/node_modules/node-pty/build/Release/spawn-helper";
-  });
   vscodeExtensions =
     (with pkgs.vscode-extensions; [
       ms-vscode-remote.remote-ssh
@@ -18,6 +13,9 @@ pkgs.vscode-with-extensions.override {
       ms-python.python
       ms-python.vscode-pylance
       denoland.vscode-deno
+      redhat.vscode-yaml
+      ms-azuretools.vscode-docker
+      ms-vscode.cmake-tools
     ])
     ++ map (extension:
       pkgs.vscode-utils.buildVscodeMarketplaceExtension {

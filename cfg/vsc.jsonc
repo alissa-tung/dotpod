@@ -29,5 +29,18 @@
   "python.formatting.provider": "black",
   "python.formatting.blackPath": "/run/current-system/sw/bin/black",
   "python.linting.pylintPath": "/run/current-system/sw/bin/pylint",
-  "python.linting.pylintEnabled": true
+  "python.linting.pylintEnabled": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[python]": {
+    "editor.formatOnType": false
+  },
+  "rust-analyzer.checkOnSave.allTargets": false
 }
