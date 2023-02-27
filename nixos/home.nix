@@ -38,6 +38,9 @@ in {
 
   programs.kitty = {
     enable = true;
-    settings = {shell = "zsh";};
+    settings = {
+      shell = "zsh";
+      enable_audio_bell = "no";
+    };
   };
 }
