@@ -104,6 +104,7 @@ in {
         cargo-make
         elan
         gcc
+        docker-compose
 
         wpsoffice
         qq
