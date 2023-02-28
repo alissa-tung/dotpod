@@ -12,3 +12,6 @@ zstyle ':prompt:grml:left:setup' items rc change-root user at host in-nix-shell 
 
 export HEX_CDN='https://hexpm.upyun.com'
 export HEX_MIRROR="$HEX_CDN"
+
+export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
+export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
