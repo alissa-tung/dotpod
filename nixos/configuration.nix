@@ -150,6 +150,7 @@ in {
     sarasa-gothic
 
     roboto-mono
+    nerdfonts
   ];
 
   services.openssh.enable = true;
