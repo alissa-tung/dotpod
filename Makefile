@@ -55,7 +55,8 @@ rebuild-os-test:
 		--flake ./dotpod \
 		--override-input priv ./priv)
 
+STARSHIP_PRESET = pure-preset
 update-starship:
-	starship preset plain-text-symbols > gen/starship.toml
+	starship preset ${STARSHIP_PRESET} > gen/starship.toml
 
-update: update-starship update-lock vsc-ext fmt
+update: update-lock vsc-ext fmt

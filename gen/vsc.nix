@@ -15,14 +15,14 @@
     {
       name = "pylint";
       publisher = "ms-python";
-      version = "2023.3.10391012";
-      sha256 = "0k9m54ay5y8wa41bb8jlgvzhyyicpalmy3cmhw9spwyjfy7rwwxl";
+      version = "2023.3.10541012";
+      sha256 = "1k89pkpllbywm1g2w1xgyas3rydw4699j689jkj8vdmwyvjcs8aq";
     }
     {
       name = "lean4";
       publisher = "leanprover";
-      version = "0.0.100";
-      sha256 = "0lrdgha2a9kr3w63wn51adxnf2rbb3hgz9al0w4sgsrkda7fqgfb";
+      version = "0.0.101";
+      sha256 = "1b2gryk6prafc0j9wn46y4g0gdhyw4wfb9s0jaapm9xagvllyz5l";
     }
   ];
 }

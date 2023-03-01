@@ -74,11 +74,13 @@ in {
     promptInit = lib.mkForce "";
     interactiveShellInit =
       ''
+        export GRML_DISPLAY_BATTERY=1
         source "${pkgs.grml-zsh-config}/etc/zsh/zshrc"
       ''
       + builtins.readFile ../cfg/.zshrc;
 
     autosuggestions = {enable = true;};
+    syntaxHighlighting = {enable = true;};
   };
 
   programs.bash.interactiveShellInit = ''
@@ -101,6 +103,11 @@ in {
         cargo-binutils
         cargo-make
         elan
+        gcc
+        docker-compose
+
+        wpsoffice
+        qq
       ]);
   };
 
@@ -130,6 +137,7 @@ in {
     deno
     shadowsocks-rust
     jetbrains.idea-ultimate
+    tree
   ];
 
   fonts.fonts = with pkgs; [
@@ -142,6 +150,7 @@ in {
     sarasa-gothic
 
     roboto-mono
+    nerdfonts
   ];
 
   services.openssh.enable = true;
