@@ -138,6 +138,7 @@ in {
     shadowsocks-rust
     jetbrains.idea-ultimate
     tree
+    obs-studio
   ];
 
   fonts.fonts = with pkgs; [
