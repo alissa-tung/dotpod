@@ -13,6 +13,8 @@
   xmobar = import ../pkgs/xmobar.nix {inherit pkgs;};
   sharedResources = utils.sharedResources pkgs;
 in {
+  networking.firewall.enable = false;
+
   imports = [
     ./hardware-configuration.nix
 
@@ -139,6 +141,8 @@ in {
     jetbrains.idea-ultimate
     tree
     obs-studio
+    protobuf
+    jdk11_headless
   ];
 
   fonts.fonts = with pkgs; [

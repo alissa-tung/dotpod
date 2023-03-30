@@ -15,8 +15,8 @@
     {
       name = "pylint";
       publisher = "ms-python";
-      version = "2023.3.10541012";
-      sha256 = "1k89pkpllbywm1g2w1xgyas3rydw4699j689jkj8vdmwyvjcs8aq";
+      version = "2023.5.10861012";
+      sha256 = "1kmcjnishmp2f2lk84xs7fm3s5xkw5bxilc9g1ybw8fkdm24b5v2";
     }
     {
       name = "lean4";
