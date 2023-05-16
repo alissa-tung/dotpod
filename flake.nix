@@ -2,6 +2,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     priv.inputs.nixpkgs.follows = "nixpkgs";
 
     disko = {
@@ -21,7 +26,8 @@
     priv,
     disko,
     home-manager,
-  } @ inputs: let
+    hyprland,
+  }: let
     privCfg = priv.privCfg;
     hostName = priv.privCfg.hostName;
     mainUser = "${privCfg.mainUser}";
@@ -62,6 +68,9 @@
           home-manager.users."${mainUser}" =
             import ./nixos/home.nix {inherit stateVersion pkgs;};
         })
+
+        hyprland.nixosModules.default
+        {programs.hyprland.enable = true;}
       ];
     };
 
