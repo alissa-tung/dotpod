@@ -43,5 +43,7 @@
     "editor.formatOnType": false
   },
   "rust-analyzer.checkOnSave.allTargets": false,
-  "redhat.telemetry.enabled": true
+  "redhat.telemetry.enabled": true,
+  "clangd.onConfigChanged": "restart",
+  "agdaMode.connection.agdaLanguageServer": true
 }

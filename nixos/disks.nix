@@ -1,8 +1,4 @@
-{
-  config,
-  privCfg,
-  ...
-}: let
+{privCfg, ...}: let
   mainDisk = privCfg.mainDisk;
 in {
   disko.enableConfig = true;
@@ -16,7 +12,6 @@ in {
 
         partitions = [
           {
-            type = "partition";
             name = "ESP";
             start = "1MiB";
             end = "512MiB";
@@ -31,7 +26,6 @@ in {
           }
 
           {
-            type = "partition";
             name = "root";
             start = "512MiB";
             end = "100%";

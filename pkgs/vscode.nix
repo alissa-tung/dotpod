@@ -16,6 +16,7 @@ pkgs.vscode-with-extensions.override {
       redhat.vscode-yaml
       ms-azuretools.vscode-docker
       ms-vscode.cmake-tools
+      ms-vscode.makefile-tools
     ])
     ++ map (extension:
       pkgs.vscode-utils.buildVscodeMarketplaceExtension {

@@ -21,6 +21,7 @@ fmt:
 	fd -e py  -x black
 	fd -e nix -x nixfmt
 	${NIX_CMD} fmt ${USE_PRIV}
+	deno fmt
 
 show:
 	${NIX_FLAKE} show ${USE_PRIV}

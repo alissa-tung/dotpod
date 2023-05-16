@@ -1,7 +1,6 @@
 {
   lib,
   privCfg,
-  config,
   pkgs,
   ...
 }: let
@@ -13,6 +12,8 @@
   xmobar = import ../pkgs/xmobar.nix {inherit pkgs;};
   sharedResources = utils.sharedResources pkgs;
 in {
+  networking.firewall.enable = false;
+
   imports = [
     ./hardware-configuration.nix
 
@@ -20,6 +21,7 @@ in {
   ];
 
   services.btrfs.autoScrub.enable = true;
+  services.fstrim.enable = true;
 
   services.xserver.dpi = dpi;
   services.xserver.displayManager.sessionCommands = ''
@@ -107,38 +109,52 @@ in {
         docker-compose
 
         wpsoffice
+        filelight
         qq
       ]);
   };
 
-  environment.systemPackages = with pkgs; [
-    python3
-    git
-    gnumake
-    ormolu
-    nixfmt
-    xmobar
-    fd
-    jq
-    ripgrep
-    bottom
-    light
-    kitty
-    nil
-    alejandra
-    feh
-    unzip
-    black
-    pylint
-    erlfmt
-    erlang-ls
-    starship
-    gwenview
-    deno
-    shadowsocks-rust
-    jetbrains.idea-ultimate
-    tree
-  ];
+  environment.systemPackages =
+    (with pkgs; [
+      python3
+      git
+      gnumake
+      ormolu
+      nixfmt
+      xmobar
+      fd
+      jq
+      ripgrep
+      bottom
+      light
+      kitty
+      nil
+      alejandra
+      feh
+      unzip
+      unar
+      black
+      pylint
+      erlfmt
+      erlang-ls
+      starship
+      gwenview
+      deno
+      shadowsocks-rust
+      tree
+      obs-studio
+      protobuf
+      jdk11_headless
+      xdg-desktop-portal
+      ormolu
+    ])
+    ++ (with pkgs.jetbrains; [idea-ultimate goland])
+    ++ (with pkgs; [(agda.withPackages [agdaPackages.standard-library])])
+    ++ (with pkgs; [
+      (haskellPackages.ghcWithPackages
+        (ghcPkgs: with ghcPkgs; [haskell-language-server cabal-install]))
+    ])
+    ++ (with pkgs.haskellPackages; [cabal-fmt]);
 
   fonts.fonts = with pkgs; [
     noto-fonts
