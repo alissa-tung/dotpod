@@ -99,6 +99,8 @@ in {
       [vscode]
       ++ (with pkgs; [
         firefox
+        chromium
+        flutter
         rustup
         cargo-edit
         cargo-hakari

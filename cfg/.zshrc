@@ -16,3 +16,8 @@ export HEX_MIRROR="$HEX_CDN"
 export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
 export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
 export PATH="$PATH:$HOME/.cargo/bin"
+
+export FLUTTER_STORAGE_BASE_URL='https://mirrors.tuna.tsinghua.edu.cn/flutter'
+export PUB_HOSTED_URL='https://mirrors.tuna.tsinghua.edu.cn/dart-pub'
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+export CHROME_EXECUTABLE=chromium
