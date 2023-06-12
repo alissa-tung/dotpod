@@ -12,6 +12,11 @@
   xmobar = import ../pkgs/xmobar.nix {inherit pkgs;};
   sharedResources = utils.sharedResources pkgs;
 in {
+  systemd.services.nix-daemon.environment = {
+    https_proxy = "http://127.0.0.1:7995";
+    http_proxy = "http://127.0.0.1:7995";
+  };
+
   networking.firewall.enable = false;
 
   imports = [
@@ -109,10 +114,12 @@ in {
         elan
         gcc
         docker-compose
+        sqlite
 
         wpsoffice
         filelight
         qq
+        obsidian
       ]);
   };
 

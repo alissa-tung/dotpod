@@ -21,8 +21,8 @@
     {
       name = "lean4";
       publisher = "leanprover";
-      version = "0.0.102";
-      sha256 = "033afryfl53vnf89z1lac8adr11wginpd47abph9d6daxlpsaw3a";
+      version = "0.0.103";
+      sha256 = "0rcdpbs8dx8cf0s3fjsjjzjrvhdzyrd3rdn9lk09snq8gsb6y6ny";
     }
     {
       name = "agda-mode";
@@ -33,14 +33,14 @@
     {
       name = "flutter";
       publisher = "Dart-Code";
-      version = "3.65.20230510";
-      sha256 = "07f3pyla79r25n5dnkl3icrdcx8w5rc1r036jbaf1q9pbgrqcgb3";
+      version = "3.67.20230601";
+      sha256 = "1nq94jkbhcjjjks157fp8q0drxv4fshmbx3cshpkv07bmcfg0w0k";
     }
     {
       name = "dart-code";
       publisher = "Dart-Code";
-      version = "3.65.20230520";
-      sha256 = "0j7kdnl9pzjzvnqz3fwk95haryqxcdncj8vz7jbv1rwskddij1x8";
+      version = "3.67.20230601";
+      sha256 = "0d4qpjqpjilw17civ6n2qn864yys08y7ljqskfk5z20ppclkbcgg";
     }
   ];
 }

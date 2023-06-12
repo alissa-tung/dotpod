@@ -5,3 +5,4 @@ leanprover.lean4
 banacorn.agda-mode
 Dart-Code.flutter
 Dart-Code.dart-code
+github.vscode-github-actions
