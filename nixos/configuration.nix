@@ -48,11 +48,6 @@ in {
   time.timeZone = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  services.picom = {
-    enable = true;
-    backend = "glx";
-  };
-
   services.xserver = {
     enable = true;
     libinput.enable = true;
@@ -67,6 +62,10 @@ in {
       };
     };
   };
+
+  services.smartd.enable = true;
+
+  programs.steam.enable = true;
 
   services.xserver.displayManager.lightdm = {
     enable = true;
@@ -113,13 +112,16 @@ in {
         cargo-make
         elan
         gcc
+        chez
         docker-compose
         sqlite
-
         wpsoffice
         filelight
         qq
         obsidian
+        logseq
+        yamlfmt
+        yuzu
       ]);
   };
 
@@ -149,13 +151,14 @@ in {
       starship
       gwenview
       deno
-      shadowsocks-rust
       tree
       obs-studio
       protobuf
       jdk11_headless
       xdg-desktop-portal
       ormolu
+
+      clash-verge
     ])
     ++ (with pkgs.jetbrains; [idea-ultimate goland])
     ++ (with pkgs; [(agda.withPackages [agdaPackages.standard-library])])
@@ -165,7 +168,8 @@ in {
     ])
     ++ (with pkgs.haskellPackages; [cabal-fmt]);
 
-  fonts.fonts = with pkgs; [
+  fonts.enableDefaultPackages = true;
+  fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif

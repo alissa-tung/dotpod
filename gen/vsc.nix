@@ -9,38 +9,44 @@
     {
       name = "erlang-ls";
       publisher = "erlang-ls";
-      version = "0.0.39";
-      sha256 = "1rvny7m2zy7n44c3cg98rh4b22pwsab2yzf11x909a9y9jyqsks7";
+      version = "0.0.40";
+      sha256 = "01jcd4aldals6a9z5ahjq139cya327bxa8bxbpzc8ljl1s54wn8w";
     }
     {
       name = "pylint";
       publisher = "ms-python";
-      version = "2023.5.11321005";
-      sha256 = "1x9nlhl62n1ipi6c13yf3njxlc24br8wgwa87d7gvv5ycj2gwws8";
+      version = "2023.7.12211006";
+      sha256 = "1vw7w13w3knhfrvwb7ps8lgi35vy0p4ry7jhb1jf3yn8lh97wvx0";
     }
     {
       name = "lean4";
       publisher = "leanprover";
-      version = "0.0.103";
-      sha256 = "0rcdpbs8dx8cf0s3fjsjjzjrvhdzyrd3rdn9lk09snq8gsb6y6ny";
+      version = "0.0.110";
+      sha256 = "06sbwmd93jqqbzx0i47f4yhdr6hss4m10zcvr5iav7dnkbg74vv3";
     }
     {
       name = "agda-mode";
       publisher = "banacorn";
-      version = "0.3.11";
-      sha256 = "0lp5vjwm9ss9925kac0rnhb0z2maa76k1g1g7bzfz45gvahgfwcf";
+      version = "0.4.0";
+      sha256 = "1c61p22kivl1h54lsi1d007hls66gfwdflm946d73l22v5l61w8z";
     }
     {
       name = "flutter";
       publisher = "Dart-Code";
-      version = "3.67.20230601";
-      sha256 = "1nq94jkbhcjjjks157fp8q0drxv4fshmbx3cshpkv07bmcfg0w0k";
+      version = "3.71.20230801";
+      sha256 = "0s0is0zwjvy5qm06jiyzbqpq0934qab6p2z5hjq2w1nn7kr4f588";
     }
     {
       name = "dart-code";
       publisher = "Dart-Code";
-      version = "3.67.20230601";
-      sha256 = "0d4qpjqpjilw17civ6n2qn864yys08y7ljqskfk5z20ppclkbcgg";
+      version = "3.71.20230801";
+      sha256 = "1vspzpj4hnz1w742qzapp99pd1msjs2y17rmsmjikyxw3306i422";
+    }
+    {
+      name = "vscode-github-actions";
+      publisher = "github";
+      version = "0.26.1";
+      sha256 = "08imjlf761scl91fh6384yi29crgqv0g1646xhk92zfzw54xjpi1";
     }
   ];
 }
